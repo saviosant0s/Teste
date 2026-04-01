@@ -635,66 +635,6 @@
     .tipo-breakdown { flex-direction:column }
     header { padding:20px 0 18px }
   }
-
-  /* ── WCAG / UX REFINEMENTS ── */
-
-  /* No text selection on interactive elements */
-  button, label, .tab-btn, .sort-btn, .obj-filter-btn, .menu-item,
-  .rule-item, .renda-card, .month-chk-label, .banco-chip,
-  .empty-start, .add-row-btn, .obj-add-btn, .btn-icon,
-  .gasto-add, .gasto-sub, .login-btn, .theme-toggle {
-    user-select: none;
-    -webkit-user-select: none;
-  }
-
-  /* Visible focus ring (WCAG 2.4.7) */
-  :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-  button:focus:not(:focus-visible),
-  input:focus:not(:focus-visible),
-  select:focus:not(:focus-visible) { outline: none; }
-
-  /* Min 44px touch targets on mobile (WCAG 2.5.5) */
-  @media (pointer: coarse) {
-    .tab-btn { min-height: 44px; padding: 10px 16px; }
-    .sort-btn, .obj-filter-btn { min-height: 44px; padding: 10px 14px; }
-    .btn-icon { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
-    .gasto-add, .gasto-sub { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
-    .menu-item { min-height: 44px; }
-    .month-chk-label { min-height: 44px; }
-  }
-
-  /* Extra whitespace around rule 50/30/20 */
-  .rule-grid { margin-top: 8px; margin-bottom: 36px; }
-  .rule-item { padding: 24px 20px; }
-
-  /* Modal animation (micro-interaction) */
-  .modal-overlay { transition: opacity .22s cubic-bezier(.4,0,.2,1); }
-  .modal {
-    transition: transform .25s cubic-bezier(.34,1.28,.64,1), opacity .22s ease;
-    opacity: 0;
-  }
-  .modal-overlay.open .modal { transform: translateY(0); opacity: 1; }
-  .modal-overlay:not(.open) .modal { transform: translateY(16px); opacity: 0; }
-
-  /* Progress bar row complete micro-animation */
-  .budget-row.done { transition: all .3s ease; }
-  .budget-row.done .row-dot { transition: background .3s ease, box-shadow .3s ease; }
-
-  /* ── PREMIUM / PIX MODAL ── */
-  .upsell-modal .modal { max-width: 400px; text-align: center; }
-  .upsell-icon { font-size: 40px; margin-bottom: 12px; }
-  .upsell-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
-  .upsell-sub { font-size: 13px; color: var(--text-2); line-height: 1.6; margin-bottom: 24px; }
-  .upsell-features { text-align: left; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 20px; }
-  .upsell-feature { display: flex; align-items: center; gap: 10px; font-size: 13px; padding: 5px 0; color: var(--text-2); }
-  .upsell-feature span:first-child { color: var(--accent); font-size: 15px; }
-  .btn-premium { width: 100%; padding: 13px; background: linear-gradient(135deg, #16473A, #1D5C4C); color: #fff; border: none; border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-weight: 800; font-size: 15px; cursor: pointer; transition: all .2s; box-shadow: 0 4px 16px rgba(22,71,58,.35); display: flex; align-items: center; justify-content: center; gap: 8px; }
-  .btn-premium:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(22,71,58,.45); }
-  .btn-not-now { margin-top: 10px; background: transparent; border: none; color: var(--text-3); font-size: 12px; cursor: pointer; width: 100%; padding: 6px; }
-  .premium-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: linear-gradient(135deg, #f5c842, #e8a020); border-radius: 20px; font-size: 10px; font-weight: 700; color: #000; vertical-align: middle; margin-left: 6px; }
 </style>
 </head>
 <body><div class="blob3"></div>
@@ -734,8 +674,8 @@
     <div class="renda-card" onclick="openRendaModal()">
       <div class="renda-edit-hint">pencil editar</div>
       <div class="renda-label">Renda mensal</div>
-      <div class="renda-value" id="rendaDisplay">R$1.150</div>
-      <div class="renda-period" id="periodoDisplay">16/03 -> 16/04</div>
+      <div class="renda-value" id="rendaDisplay">definir</div>
+      <div class="renda-period" id="periodoDisplay">-</div>
     </div>
   </header>
 
@@ -790,15 +730,12 @@
 </div>
 <!-- DROPDOWN MENU -->
 <div class="hamburger-menu" id="hamburgerMenu">
-  <button class="menu-item" onclick="openReport();closeMenu()" aria-label="Relatório Anual"><span class="mi-icon">📊</span> Relatório Anual <span class="premium-badge">💎</span></button>
+  <button class="menu-item" onclick="openReport();closeMenu()"><span class="mi-icon">📊</span> Relatório Anual</button>
   <div class="menu-divider"></div>
-  <button class="menu-item" onclick="window.open('https://wa.me/5575988926392?text=Oi%20S%C3%A1vio%2C%20tenho%20um%20feedback%20sobre%20o%20app%20de%20finan%C3%A7as!','_blank');closeMenu()" aria-label="Enviar feedback pelo WhatsApp"><span class="mi-icon">💬</span> Enviar feedback</button>
+  <button class="menu-item" onclick="window.open('https://wa.me/5575988926392?text=Oi%20S%C3%A1vio%2C%20tenho%20um%20feedback%20sobre%20o%20app%20de%20finan%C3%A7as!','_blank');closeMenu()"><span class="mi-icon">💬</span> Enviar feedback</button>
   <div class="menu-divider"></div>
-  <button class="menu-item" onclick="exportData();closeMenu()" aria-label="Exportar dados"><span class="mi-icon">⬇</span> Exportar dados <span class="premium-badge">💎</span></button>
-  <label class="menu-item" aria-label="Importar dados"><span class="mi-icon">⬆</span> Importar dados<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
-  <div class="menu-divider"></div>
-  <button class="menu-item" onclick="openPixModal();closeMenu()" aria-label="Apoiar o projeto via Pix"><span class="mi-icon">☕</span> Apoiar o projeto</button>
-  <button class="menu-item" onclick="goToPremium();closeMenu()" style="color:var(--accent);font-weight:600" aria-label="Ativar Premium Vitalício"><span class="mi-icon">💎</span> Ativar Premium</button>
+  <button class="menu-item" onclick="exportData();closeMenu()"><span class="mi-icon">⬇</span> Exportar dados</button>
+  <label class="menu-item"><span class="mi-icon">⬆</span> Importar dados<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
 </div>
 
 <div class="report-overlay" id="reportOverlay">
@@ -828,7 +765,7 @@
 </div>
 
 <!-- MODAL QUICK GASTO -->
-<div class="modal-overlay" id="modalQuickGasto" role="dialog" aria-modal="true" aria-labelledby="quickGastoTitle">
+<div class="modal-overlay" id="modalQuickGasto">
   <div class="modal" style="max-width:340px">
     <div class="modal-title">
       <span id="quickGastoTitle">Adicionar gasto</span>
@@ -848,7 +785,7 @@
 </div>
 
 <!-- MODAL REGRA -->
-<div class="modal-overlay" id="modalRegra" role="dialog" aria-modal="true">
+<div class="modal-overlay" id="modalRegra">
   <div class="modal" style="max-width:360px">
     <div class="modal-title"><span>Editar regra de distribuição</span><button class="modal-close" onclick="closeRuleModal()">×</button></div>
     <p style="font-size:12px;color:var(--text-2);margin-bottom:18px;line-height:1.6">Os valores devem somar 100%. Padrão: 50/30/20.</p>
@@ -864,13 +801,13 @@
 </div>
 
 <!-- MODAL RENDA -->
-<div class="modal-overlay" id="modalRenda" role="dialog" aria-modal="true" aria-labelledby="rendaModalTitle">
+<div class="modal-overlay" id="modalRenda">
   <div class="modal">
     <div class="modal-title"><span id="rendaModalTitle">Editar Renda</span><button class="modal-close" onclick="closeRendaModal()">x</button></div>
-    <div class="form-group"><label class="form-label">Renda mensal (R$)</label><input class="form-input" type="number" id="fRenda" placeholder="1150" step="0.01" min="0" oninput="updateRulePreview()"></div>
+    <div class="form-group"><label class="form-label">Renda mensal (R$)</label><input class="form-input" type="number" id="fRenda" placeholder="0.00" step="0.01" min="0" oninput="updateRulePreview()"></div>
     <div class="form-row">
-      <div class="form-group"><label class="form-label">Inicio</label><input class="form-input" type="text" id="fPeriodoInicio" placeholder="16/03"></div>
-      <div class="form-group"><label class="form-label">Fim</label><input class="form-input" type="text" id="fPeriodoFim" placeholder="16/04"></div>
+      <div class="form-group"><label class="form-label">Inicio</label><input class="form-input" type="text" id="fPeriodoInicio" placeholder="dd/mm"></div>
+      <div class="form-group"><label class="form-label">Fim</label><input class="form-input" type="text" id="fPeriodoFim" placeholder="dd/mm"></div>
     </div>
     <div class="form-label" style="margin-bottom:8px">Preview - Regra 50/30/20</div>
     <div class="rule-preview">
@@ -883,13 +820,13 @@
 </div>
 
 <!-- MODAL GASTO -->
-<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<div class="modal-overlay" id="modal">
   <div class="modal">
     <div class="modal-title"><span id="modalTitle">Adicionar gasto</span><button class="modal-close" onclick="closeModal()">x</button></div>
-    <div class="form-group"><label class="form-label">Categoria</label><input class="form-input" type="text" id="fCat" placeholder="Ex: Alimentacao" aria-label="Nome da categoria" aria-required="true"></div>
+    <div class="form-group"><label class="form-label">Categoria</label><input class="form-input" type="text" id="fCat" placeholder="Ex: Alimentacao"></div>
     <div class="form-row">
-      <div class="form-group"><label class="form-label">Planejado (R$)</label><input class="form-input" type="number" id="fPlan" placeholder="0.00" step="0.01" min="0" aria-label="Valor planejado em reais"></div>
-      <div class="form-group"><label class="form-label">Gasto (R$)</label><input class="form-input" type="number" id="fGasto" placeholder="0.00" step="0.01" min="0" oninput="syncSubcatTotal()" aria-label="Valor gasto em reais"></div>
+      <div class="form-group"><label class="form-label">Planejado (R$)</label><input class="form-input" type="number" id="fPlan" placeholder="0.00" step="0.01" min="0"></div>
+      <div class="form-group"><label class="form-label">Gasto (R$)</label><input class="form-input" type="number" id="fGasto" placeholder="0.00" step="0.01" min="0" oninput="syncSubcatTotal()"></div>
     </div>
     <div class="form-group">
       <label class="form-label">Banco <span>- opcional</span></label>
@@ -933,7 +870,7 @@
 </div>
 
 <!-- MODAL OBJETIVO -->
-<div class="modal-overlay" id="modalObj" role="dialog" aria-modal="true" aria-labelledby="objModalTitle">
+<div class="modal-overlay" id="modalObj">
   <div class="modal">
     <div class="modal-title"><span id="objModalTitle">Novo objetivo</span><button class="modal-close" onclick="closeObjModal()">x</button></div>
     <div class="form-group"><label class="form-label">Nome do objetivo</label><input class="form-input" type="text" id="oNome" placeholder="Ex: Notebook, Viagem..."></div>
@@ -980,47 +917,7 @@
   </div>
 </div>
 
-<!-- MODAL UPSELL PREMIUM -->
-<div class="modal-overlay upsell-modal" id="modalUpsell" role="dialog" aria-modal="true" aria-labelledby="upsellTitle">
-  <div class="modal">
-    <div class="upsell-icon">💎</div>
-    <div class="upsell-title" id="upsellTitle">Recurso Premium</div>
-    <p class="upsell-sub" id="upsellSub">Este recurso é exclusivo para usuários Premium.</p>
-    <div class="upsell-features">
-      <div class="upsell-feature"><span>✓</span> Relatório Anual Detalhado</div>
-      <div class="upsell-feature"><span>✓</span> Exportação de dados (backup)</div>
-      <div class="upsell-feature"><span>✓</span> Objetivos ilimitados</div>
-      <div class="upsell-feature"><span>✓</span> Acesso vitalício — pague uma vez</div>
-    </div>
-    <button class="btn-premium" onclick="goToPremium()">💎 Ativar Premium Vitalício</button>
-    <button class="btn-not-now" onclick="closeUpsell()">Agora não</button>
-  </div>
-</div>
-
-<!-- MODAL PIX APOIO -->
-<div class="modal-overlay" id="modalPix" role="dialog" aria-modal="true" aria-labelledby="pixTitle">
-  <div class="modal" style="max-width:400px;text-align:center">
-    <div class="modal-title" style="justify-content:center;position:relative">
-      <span id="pixTitle">☕ Apoie o Projeto</span>
-      <button class="modal-close" onclick="closePixModal()" style="position:absolute;right:0" aria-label="Fechar">×</button>
-    </div>
-    <p style="font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:20px">Esse app é mantido de forma independente. Se ele te ajuda a economizar, considere me pagar um café através do Pix! ☕</p>
-    <!-- QR Code placeholder -->
-    <div style="width:160px;height:160px;margin:0 auto 16px;background:var(--bg-subtle);border:2px dashed var(--border-2);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;color:var(--text-3);font-size:11px;font-weight:500">
-      QR Code Pix<br><span style="font-size:9px;opacity:.6">(adicione sua imagem)</span>
-    </div>
-    <div style="margin-bottom:16px">
-      <div style="font-size:10px;font-weight:600;color:var(--text-2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Chave Pix</div>
-      <div style="background:var(--bg-subtle);border:1px solid var(--border-2);border-radius:var(--radius-sm);padding:10px 12px;font-family:'Inter',monospace;font-size:13px;display:flex;align-items:center;justify-content:space-between;gap:8px">
-        <span id="pixKeyText" style="color:var(--text);word-break:break-all">75988926392</span>
-        <button onclick="copyPixKey()" style="flex-shrink:0;padding:5px 12px;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:var(--radius-xs);color:var(--accent);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer" aria-label="Copiar chave Pix">Copiar</button>
-      </div>
-    </div>
-    <p style="font-size:11px;color:var(--text-3)">Qualquer valor é muito bem-vindo 💚</p>
-  </div>
-</div>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="toast" id="toast"></div>
 
 <script>
 var MONTHS = ['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
@@ -1034,7 +931,6 @@ var sortMode = 'default';
 var rendas = {};    // { JAN: 0, FEV: 1150, MAR: 1150, ... }
 var periodos = {};  // { MAR: {inicio:'16/03', fim:'16/04'}, ... }
 var rulePcts = { N: 50, D: 30, P: 20 };  // percentages 50/30/20
-var isPremium = false;  // set true after Firestore verification
 var editingId = null;
 var editingMonth = null;
 var editingObjId = null;
@@ -1103,8 +999,8 @@ async function load() {
       // migrate old single renda
       if (meta.renda && !rendas[activeMonth]) rendas[activeMonth] = meta.renda;
     } else {
-      rendas[activeMonth] = 1150;
-      periodos[activeMonth] = {inicio:'16/03', fim:'16/04'};
+      rendas[activeMonth] = 0;
+      periodos[activeMonth] = {inicio:'', fim:''};
     }
   } catch(e) { seed(); }
 }
@@ -1192,7 +1088,7 @@ function renderHeader() {
   var r = getMesRenda(activeMonth);
   var p = getMesPeriodo(activeMonth);
   document.getElementById('rendaDisplay').textContent = r ? fmtR(r) : 'definir';
-  document.getElementById('periodoDisplay').textContent = (p.inicio && p.fim) ? p.inicio + ' -> ' + p.fim : activeMonth + '/2025';
+  document.getElementById('periodoDisplay').textContent = (p.inicio && p.fim) ? p.inicio + ' -> ' + p.fim : '-';
 }
 function renderRule() {
   var r = getMesRenda(activeMonth);
@@ -1657,7 +1553,6 @@ function getPagamentos() {
   return p;
 }
 function openObjModal() {
-  if (!isPremium && objetivos.length >= 5) { openUpsell('obj'); return; }
   editingObjId = null;
   document.getElementById('objModalTitle').textContent = 'Novo objetivo';
   document.getElementById('oNome').value = '';
@@ -1782,65 +1677,6 @@ function resetRuleModal() {
   updateRuleSumWarning();
 }
 
-// ── PREMIUM & MONETIZAÇÃO ────────────────────────────────────────────────────
-
-// Check isPremium from Firestore (called after login)
-async function checkPremiumStatus() {
-  if (!fbIdToken || !fbUser) return;
-  try {
-    var cfg = getFbConfig();
-    var url = 'https://firestore.googleapis.com/v1/projects/' + cfg.projectId +
-              '/databases/(default)/documents/users/' + fbUser.uid;
-    var res = await fetch(url, { headers: { 'Authorization': 'Bearer ' + fbIdToken } });
-    if (res.ok) {
-      var doc = await res.json();
-      if (doc.fields && doc.fields.isPremium && doc.fields.isPremium.booleanValue === true) {
-        isPremium = true;
-      }
-    } else {
-      // Document doesn't exist yet — create it with isPremium: false
-      await fetch(url, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + fbIdToken },
-        body: JSON.stringify({ fields: { isPremium: { booleanValue: false } } })
-      });
-    }
-  } catch(e) { console.warn('checkPremiumStatus error', e); }
-}
-
-// Upsell modal
-function openUpsell(reason) {
-  var msgs = {
-    report:  { title: 'Relatório Anual', sub: 'Veja gráficos completos e uma análise detalhada de todos os meses do ano.' },
-    export:  { title: 'Exportar Dados', sub: 'Faça backup dos seus dados financeiros em um arquivo JSON a qualquer momento.' },
-    obj:     { title: 'Objetivos Ilimitados', sub: 'Você atingiu o limite de 5 objetivos no plano gratuito.' }
-  };
-  var m = msgs[reason] || { title: 'Recurso Premium', sub: 'Este recurso é exclusivo para usuários Premium.' };
-  document.getElementById('upsellTitle').textContent = m.title;
-  document.getElementById('upsellSub').textContent = m.sub;
-  document.getElementById('modalUpsell').classList.add('open');
-}
-function closeUpsell() { document.getElementById('modalUpsell').classList.remove('open'); }
-function goToPremium() {
-  // Replace with your checkout URL (Mercado Pago, Stripe, etc.)
-  window.open('https://wa.me/5575988926392?text=Olá%20Sávio%2C%20quero%20ativar%20o%20Premium%20do%20app!', '_blank');
-  closeUpsell();
-}
-
-// Pix modal
-function openPixModal() { document.getElementById('modalPix').classList.add('open'); }
-function closePixModal() { document.getElementById('modalPix').classList.remove('open'); }
-function copyPixKey() {
-  var key = document.getElementById('pixKeyText').textContent;
-  navigator.clipboard.writeText(key).then(function() {
-    showToast('Chave Pix copiada!', 'success');
-  }).catch(function() {
-    showToast('Copie manualmente: ' + key, 'success');
-  });
-}
-
-// ── GATED FEATURES ───────────────────────────────────────────────────────────
-
 // TOAST
 var _tt;
 function showToast(msg, type) {
@@ -1854,20 +1690,17 @@ function showToast(msg, type) {
 
 // KEYBOARD
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { closeModal(); closeRendaModal(); closeObjModal(); closeReport(); closeMenu(); closeQuickGasto(); closeRuleModal(); closeUpsell(); closePixModal(); }
+  if (e.key === 'Escape') { closeModal(); closeRendaModal(); closeObjModal(); closeReport(); closeMenu(); closeQuickGasto(); closeRuleModal(); }
 });
 document.getElementById('modal').addEventListener('click', function(e) { if (e.target === e.currentTarget) closeModal(); });
 document.getElementById('modalRenda').addEventListener('click', function(e) { if (e.target === e.currentTarget) closeRendaModal(); });
 document.getElementById('modalQuickGasto').addEventListener('click', function(e) { if (e.target === e.currentTarget) closeQuickGasto(); });
 document.getElementById('modalObj').addEventListener('click', function(e) { if (e.target === e.currentTarget) closeObjModal(); });
 document.getElementById('modalRegra').addEventListener('click', function(e) { if (e.target === e.currentTarget) closeRuleModal(); });
-document.getElementById('modalUpsell').addEventListener('click', function(e) { if (e.target === e.currentTarget) closeUpsell(); });
-document.getElementById('modalPix').addEventListener('click', function(e) { if (e.target === e.currentTarget) closePixModal(); });
 document.getElementById('fBanco').addEventListener('input', renderBancoSuggestions);
 
 // EXPORT / IMPORT
 function exportData() {
-  if (!isPremium) { openUpsell('export'); return; }
   var payload = JSON.stringify({db:db, objetivos:objetivos, meta:{month:activeMonth,sortMode:sortMode,objFilter:objFilter,rendas:rendas,periodos:periodos}}, null, 2);
   var blob = new Blob([payload], {type:'application/json'});
   var url = URL.createObjectURL(blob);
@@ -1924,7 +1757,6 @@ function destroyChart(id) {
 }
 
 function openReport() {
-  if (!isPremium) { closeMenu(); openUpsell('report'); return; }
   closeMenu();
   document.getElementById('reportOverlay').classList.add('open');
   setTimeout(renderReport, 50);
@@ -2172,7 +2004,6 @@ async function onGoogleCredential(response) {
     scheduleTokenRefresh(exp);
     updateAuthBar();
     await syncFromCloud();
-    await checkPremiumStatus();
     showToast('Logado!', 'success');
   } catch(e) {
     setAuthSyncStatus('erro: ' + e.message);
@@ -2274,7 +2105,6 @@ function tryRestoreSession() {
       scheduleTokenRefresh(s.exp);
       updateAuthBar();
       syncFromCloud();
-      checkPremiumStatus();
     } else if (s && s.rt) {
       // Token expired but we have a refresh token — refresh immediately
       fbUser = s.u;
